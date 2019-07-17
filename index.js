@@ -9,3 +9,7 @@ passport.use(new GoogleStrategy());
 // dynamically figure out what port to listen to
 const PORT = process.env.PORT || 5000;
 app.listen(PORT);
+
+// http://localhost:5000/auth/google/callback
+
+
