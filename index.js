@@ -12,7 +12,7 @@ passport.use(
       clientSecret: keys.googleClientSecret,
       callbackURL: '/auth/google/callback' // route user will be sent to after they grant our app permission
     },
-    accessToken => {
+    accessToken => { // callback function
       console.log(accessToken);
     }
   )
@@ -25,6 +25,9 @@ app.get(
     scope: ['profile', 'email'] // specifies to google what type of access we want from the user's info
   })
 );
+
+// pass the `code` query param provided by google
+app.get('/auth/google/callback', passport.authenticate('google'));
 
 // dynamically figure out what port to listen to
 const PORT = process.env.PORT || 5000;
