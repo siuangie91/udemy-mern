@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const keys = require('./config/keys');
 
 require('./services/passport'); // just need to run the file, so no need to assign to a var
+require('./models/User');
 
 mongoose.connect(keys.mongoURI);
 
