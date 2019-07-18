@@ -10,6 +10,13 @@ passport.serializeUser((user, done) => {
   done(null, user.id); // `user.id` is the entry id in the db
 });
 
+passport.deserializeUser((id, done) => {
+  // turns the id back into a user
+  User.findById(id).then(user => {
+    done(null, user);
+  });
+});
+
 passport.use(
   new GoogleStrategy( // will be known as a string value of 'google'
     {
