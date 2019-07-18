@@ -5,6 +5,11 @@ const keys = require('../config/keys');
 
 const User = mongoose.model('users'); // create the User model instance
 
+// define a function and pass to serializeUser
+passport.serializeUser((user, done) => {
+  done(null, user.id); // `user.id` is the entry id in the db
+});
+
 passport.use(
   new GoogleStrategy( // will be known as a string value of 'google'
     {
@@ -13,11 +18,8 @@ passport.use(
       callbackURL: '/auth/google/callback' // route user will be sent to after they grant our app permission
     },
     (accessToken, refreshToken, profile, done) => {
-      console.log(
-        '*****************************',
-        profile.id,
-        profile.emails[0].value
-      );
+      console.log('*********************');
+      console.log(profile.id, profile.emails[0].value);
 
       User.findOne({ googleId: profile.id }).then(existingUser => {
         if (existingUser) {
