@@ -1,35 +1,30 @@
 const express = require('express');
+const mongoose = require('mongoose');
+const cookieSession = require('cookie-session');
 const passport = require('passport');
-const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const keys = require('./config/keys');
+require('./models/User');
+require('./services/passport'); // just need to run the file, so no need to assign to a var
+
+mongoose.connect(keys.mongoURI, { useNewUrlParser: true });
 
 const app = express();
 
-passport.use(
-  new GoogleStrategy( // will be known as a string value of 'google'
-    {
-      clientID: keys.googleClientID,
-      clientSecret: keys.googleClientSecret,
-      callbackURL: '/auth/google/callback' // route user will be sent to after they grant our app permission
-    },
-    (accessToken, refreshToken, profile, done) => { // callback function
-      console.log('access token', accessToken);
-      console.log('refresh token', refreshToken);
-      console.log('profile:', profile);
-    }
-  )
-);
-
-// when user gets to this route, kick them into the passport flow
-app.get(
-  '/auth/google/',
-  passport.authenticate('google', {
-    scope: ['profile', 'email'] // specifies to google what type of access we want from the user's info
+// middlewares for passport and cookie
+app.use(
+  /*
+  For cookieSession, the cookie IS the session. Passport takes the user id, 
+  finds the user, and sets it on the request object as `session`
+  */
+  cookieSession({
+    maxAge: 30 * 24 * 60 * 60 * 1000, // 30 days
+    keys: [keys.cookieKey] // to encrypt cookie
   })
 );
+app.use(passport.initialize());
+app.use(passport.session());
 
-// pass the `code` query param provided by google
-app.get('/auth/google/callback', passport.authenticate('google'));
+require('./routes/authRoutes')(app); // import the authRoutes function and call it passing in `app`
 
 // dynamically figure out what port to listen to
 const PORT = process.env.PORT || 5000;
