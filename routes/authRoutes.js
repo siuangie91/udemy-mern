@@ -11,5 +11,8 @@ module.exports = app => {
 
   // pass the `code` query param provided by google
   app.get('/auth/google/callback', passport.authenticate('google'));
-};
 
+  app.get('/api/current_user', (req, res) => {
+    res.send(req.user);
+  });
+};
