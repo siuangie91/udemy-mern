@@ -22,9 +22,12 @@ passport.use(
       User.findOne({ googleId: profile.id }).then(existingUser => {
         if (existingUser) {
           // user already exists
+          done(null, existingUser); // no error, user record
         } else {
-          // create user
-          new User({ googleId: profile.id }).save(); // save model instance to db
+          // create new user model instance
+          new User({ googleId: profile.id })
+            .save() // save model instance to db
+            .then(user => done(null, user));
         }
       });
     }
