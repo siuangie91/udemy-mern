@@ -5,7 +5,7 @@ const keys = require('./config/keys');
 require('./models/User');
 require('./services/passport'); // just need to run the file, so no need to assign to a var
 
-mongoose.connect(keys.mongoURI);
+mongoose.connect(keys.mongoURI, { useNewUrlParser: true });
 
 const app = express();
 
