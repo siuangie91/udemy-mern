@@ -22,12 +22,10 @@ passport.use(
     {
       clientID: keys.googleClientID,
       clientSecret: keys.googleClientSecret,
-      callbackURL: '/auth/google/callback' // route user will be sent to after they grant our app permission
+      callbackURL: '/auth/google/callback', // route user will be sent to after they grant our app permission
+      proxy: true // allow proxy
     },
     (accessToken, refreshToken, profile, done) => {
-      console.log('*********************');
-      console.log(profile.id, profile.emails[0].value);
-
       User.findOne({ googleId: profile.id }).then(existingUser => {
         if (existingUser) {
           // user already exists
