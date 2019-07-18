@@ -13,6 +13,11 @@ module.exports = app => {
   app.get('/auth/google/callback', passport.authenticate('google'));
 
   app.get('/api/current_user', (req, res) => {
+    res.send(req.user); // passport attaches `user` to the request obj
+  });
+
+  app.get('/api/logout', (req, res) => {
+    req.logout(); // function attached by passport to req obj
     res.send(req.user);
   });
 };
