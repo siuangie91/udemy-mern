@@ -10,13 +10,17 @@ mongoose.connect(keys.mongoURI, { useNewUrlParser: true });
 
 const app = express();
 
+// middlewares for passport and cookie
 app.use(
+  /*
+  For cookieSession, the cookie IS the session. Passport takes the user id, 
+  finds the user, and sets it on the request object as `session`
+  */
   cookieSession({
     maxAge: 30 * 24 * 60 * 60 * 1000, // 30 days
     keys: [keys.cookieKey] // to encrypt cookie
   })
 );
-
 app.use(passport.initialize());
 app.use(passport.session());
 
