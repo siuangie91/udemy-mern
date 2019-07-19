@@ -9,14 +9,12 @@ const Landing = () => <h2>Landing</h2>;
 class App extends Component {
   render() {
     return (
-      <div>
-        <BrowserRouter>
-          <Fragment>
-            <Route path="/" exact component={Landing} />
-            <Route path="/surveys" component={Dashboard} />
-          </Fragment>
-        </BrowserRouter>
-      </div>
+      <BrowserRouter>
+        <Header />
+        <Route exact path='/' component={Landing} />
+        <Route exact path='/surveys' component={Dashboard} />
+        <Route path='/surveys/new' component={SurveyNew} />
+      </BrowserRouter>
     );
   }
 }
