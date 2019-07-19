@@ -10,7 +10,14 @@ module.exports = app => {
   );
 
   // pass the `code` query param provided by google
-  app.get('/auth/google/callback', passport.authenticate('google'));
+  app.get(
+    '/auth/google/callback',
+    passport.authenticate('google'),
+    (req, res) => {
+      // redirect user after authentication
+      res.redirect('/surveys');
+    }
+  );
 
   app.get('/api/current_user', (req, res) => {
     res.send(req.user); // passport attaches `user` to the request obj
