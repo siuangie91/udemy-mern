@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { BrowserRouter, Route } from 'react-router-dom';
 
 const Header = () => <h2>Header</h2>;
@@ -11,11 +11,11 @@ class App extends Component {
     return (
       <div>
         <BrowserRouter>
-          <div>
-            <Route path="/" exact="true" component={Landing} />
+          <Fragment>
+            <Route path="/" exact component={Landing} />
             <Route path="/dashboard" component={Dashboard} />
-            <Route path="/new-survey" component={SurveyNew} />
-          </div>
+            <Route path="/surveys" component={SurveyNew} />
+          </Fragment>
         </BrowserRouter>
       </div>
     );
