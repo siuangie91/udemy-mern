@@ -14,8 +14,7 @@ module.exports = app => {
     '/auth/google/callback',
     passport.authenticate('google'),
     (req, res) => {
-      // redirect user after authentication
-      res.redirect('/surveys');
+      res.redirect('/surveys'); // redirect user after authentication
     }
   );
 
@@ -25,6 +24,6 @@ module.exports = app => {
 
   app.get('/api/logout', (req, res) => {
     req.logout(); // function attached by passport to req obj
-    res.send(req.user);
+    res.redirect('/');
   });
 };
