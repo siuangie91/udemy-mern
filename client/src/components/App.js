@@ -13,8 +13,7 @@ class App extends Component {
         <BrowserRouter>
           <Fragment>
             <Route path="/" exact component={Landing} />
-            <Route path="/dashboard" component={Dashboard} />
-            <Route path="/surveys" component={SurveyNew} />
+            <Route path="/surveys" component={Dashboard} />
           </Fragment>
         </BrowserRouter>
       </div>
