@@ -8,7 +8,17 @@ const Landing = () => <h2>Landing</h2>;
 
 class App extends Component {
   render() {
-    return <h1>Hello</h1>;
+    return (
+      <div>
+        <BrowserRouter>
+          <div>
+            <Route path="/" exact="true" component={Landing} />
+            <Route path="/dashboard" component={Dashboard} />
+            <Route path="/new-survey" component={SurveyNew} />
+          </div>
+        </BrowserRouter>
+      </div>
+    );
   }
 }
 
