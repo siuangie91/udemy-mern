@@ -25,18 +25,14 @@ passport.use(
       callbackURL: '/auth/google/callback', // route user will be sent to after they grant our app permission
       proxy: true // allow proxy
     },
-    (accessToken, refreshToken, profile, done) => {
-      User.findOne({ googleId: profile.id }).then(existingUser => {
-        if (existingUser) {
-          // user already exists
-          done(null, existingUser); // no error, user record
-        } else {
-          // create new user model instance
-          new User({ googleId: profile.id })
-            .save() // save model instance to db
-            .then(user => done(null, user));
-        }
-      });
+    async (accessToken, refreshToken, profile, done) => {
+      const existingUser = await User.findOne({ googleId: profile.id });
+      if (existingUser) {
+        return done(null, existingUser); // no error, user record
+      } 
+      // create new user model instance
+      const user = await new User({ googleId: profile.id }).save(); // save model instance to db
+      done(null, user);
     }
   )
 );
