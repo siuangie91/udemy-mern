@@ -29,6 +29,18 @@ app.use(passport.session());
 require('./routes/authRoutes')(app); // import the authRoutes function and call it passing in `app`
 require('./routes/billingRoutes')(app);
 
+// config so that in prod, express knows to use react router routes when applicable
+if (process.env.NODE_ENV === 'production') {
+  // express serves up prod assets (e.g., main.js, main.css)
+  app.use(express.static('client/build'));
+
+  // express serves up index.html file if it doesn't recognize the route
+  const path = require('path');
+  app.get('*', (req, res) => {
+    res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
+  });
+}
+
 // dynamically figure out what port to listen to
 const PORT = process.env.PORT || 5000;
 app.listen(PORT);
