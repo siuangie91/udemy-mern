@@ -29,6 +29,7 @@ app.use(passport.session());
 
 require('./routes/authRoutes')(app); // import the authRoutes function and call it passing in `app`
 require('./routes/billingRoutes')(app);
+require('./routes/surveyRoutes')(app);
 
 // config so that in prod, express knows to use react router routes when applicable
 if (process.env.NODE_ENV === 'production') {
