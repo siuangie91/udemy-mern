@@ -5,6 +5,7 @@ const passport = require('passport');
 const bodyParser = require('body-parser');
 const keys = require('./config/keys');
 require('./models/User');
+require('./models/Survey');
 require('./services/passport'); // just need to run the file, so no need to assign to a var
 
 mongoose.connect(keys.mongoURI, { useNewUrlParser: true });
@@ -28,6 +29,7 @@ app.use(passport.session());
 
 require('./routes/authRoutes')(app); // import the authRoutes function and call it passing in `app`
 require('./routes/billingRoutes')(app);
+require('./routes/surveyRoutes')(app);
 
 // config so that in prod, express knows to use react router routes when applicable
 if (process.env.NODE_ENV === 'production') {
