@@ -1,5 +1,6 @@
-// shows SurveyForm and SurveyshowFormReview
+// shows SurveyForm and SurveyFormReview
 import React, { Component } from 'react';
+import { reduxForm } from 'redux-form';
 import SurveyForm from './SurveyForm';
 import SurveyReview from './SurveyFormReview';
 
@@ -15,11 +16,15 @@ class SurveyNew extends Component {
             onSurveySubmit={() => this.setState({ showFormReview: true })}
           />
         ) : (
-          <SurveyReview onCancel={() => this.setState({ showFormReview: false })} />
+          <SurveyReview
+            onCancel={() => this.setState({ showFormReview: false })}
+          />
         )}
       </div>
     );
   }
 }
 
-export default SurveyNew;
+// every time SurveyNew is unmounted, clear out form values,
+// unlike SurveyForm
+export default reduxForm({ form: 'surveyForm' })(SurveyNew);
