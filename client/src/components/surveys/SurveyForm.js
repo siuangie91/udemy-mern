@@ -35,7 +35,7 @@ function validate(values) {
   // `values` contains all the form field values
   const errors = {};
 
-  errors.emails = validateEmails(values.emails || '');
+  errors.recipients = validateEmails(values.recipients || '');
 
   formFields.forEach(({ name }) => {
     if (!values[name]) {
