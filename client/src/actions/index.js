@@ -12,3 +12,7 @@ export const handleToken = token => async dispatch => {
   // therefore we can dispatch the same FETCH_USER action
   dispatch({ type: FETCH_USER, payload: data });
 };
+
+export const submitSurvey = values => {
+  return { type: '' };
+};
