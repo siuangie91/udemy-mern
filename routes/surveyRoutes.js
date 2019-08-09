@@ -44,10 +44,17 @@ module.exports = app => {
   });
 
   app.post('/api/surveys/webhooks', (req, res) => {
-    const events = req.body.map(event => {
-      const { pathname } = new URL(event.url);
+    const events = req.body.map(({ email, url }) => {
+      const { pathname } = new URL(url);
       const p = new Path('/api/surveys/:surveyId/:choice');
-      console.log(p.test(pathname));
+      const match = p.test(pathname);
+      if (match) {
+        return { 
+          email, 
+          surveyId: 
+          match.surveyId, 
+          choice: match.choice };
+      }
     });
   });
 };
