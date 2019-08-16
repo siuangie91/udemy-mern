@@ -12,6 +12,8 @@ module.exports = app => {
   app.get('/api/surveys', requireLogin, async (req, res) => {
     const surveys = await Survey.find({
       _user: req.user.id
+    }).select({
+      recipients: false // do not include recipients property
     });
 
     res.send(surveys);
