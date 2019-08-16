@@ -1,11 +1,13 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import SurveyList from './surveys/SurveyList';
 
 const Dashboard = props => {
   return (
     <div>
-      Dashboard
+      <SurveyList />
+
       {props.auth && props.auth.credits > 0 ? (
         <div className='fixed-action-btn'>
           <Link to='/surveys/new' className='btn-floating btn-large red'>
